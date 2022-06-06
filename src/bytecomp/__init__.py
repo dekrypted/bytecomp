@@ -7,15 +7,16 @@
 # open('compiled.pyc','wb').write*(test.compile_object(compile(<code>, 'filename', 'exec')))
 # The above code will compile a code object to a .pyc file.
 
-import dis, marshal, importlib.util
+import dis
+import marshal
+from importlib.util import MAGIC_NUMBER as MAGIC
+
 
 def generate_header():
-    return importlib.util.MAGIC_NUMBER + b'\0'*(16-len(importlib.util.MAGIC_NUMBER))
+    return MAGIC + b'\0'*(16-len(MAGIC))
 
-MAGIC = importlib.util.MAGIC_NUMBER
-HEADER = generate_header()
 
-def compile_object(object):
+def compile_object(object: object) -> bytes:
     try:
         bytecode = dis.Bytecode(object).codeobj
     except TypeError:
@@ -24,3 +25,6 @@ def compile_object(object):
         raise Exception("An Unknown Error occurred.")
     return generate_header() + marshal.dumps(bytecode)
 
+
+if __name__ == "__main__":
+    pass
