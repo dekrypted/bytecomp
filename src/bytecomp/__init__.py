@@ -4,7 +4,7 @@
 
 # Example:
 # import test
-# open('compiled.pyc','wb').write*(test.compile_object(compile(<code>, 'filename', 'exec')))
+# open('compiled.pyc','wb').write(test.compile_object(compile(<code>, 'filename', 'exec')))
 # The above code will compile a code object to a .pyc file.
 
 import dis
@@ -15,6 +15,7 @@ from importlib.util import MAGIC_NUMBER as MAGIC
 def generate_header():
     return MAGIC + b'\0'*(16-len(MAGIC))
 
+HEADER = generate_header()
 
 def compile_object(object: object) -> bytes:
     try:
@@ -23,8 +24,30 @@ def compile_object(object: object) -> bytes:
         raise TypeError("Unsupported object type: %s" % type(object).__name__)
     except Exception:
         raise Exception("An Unknown Error occurred.")
-    return generate_header() + marshal.dumps(bytecode)
+    return HEADER + marshal.dumps(bytecode)
 
-
-if __name__ == "__main__":
-    pass
+def exec_bytecode(bytecode):
+    if type(bytecode).__name__ == 'bytes':
+        raise TypeError('Object is not a bytes-like object!')
+    try:
+        marshalData = marshal.loads(bytecode)
+    except ValueError:
+        raise ValueError('Bad/Invalid bytecode!')
+    try:
+        exec(marshal.loads(bytecode))
+    except Exception:
+        try:
+            exec(marshal.loads(bytecode[16:]))
+        except Exception:
+            raise ValueError('Bad/Invalid Bytecode!')
+            
+ def remove_header(bytecode):
+    try:
+        marshal.loads(bytecode)
+        return bytecode
+    except ValueError:
+        try:
+            marshal.loads(bytecode[16:])
+            return bytecode[16:]
+        except ValueError:
+            raise ValueError('Bad/Invalid Bytecode!')
