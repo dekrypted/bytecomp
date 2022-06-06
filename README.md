@@ -46,5 +46,23 @@ bytecomp.remove_header(b'U\r\r\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
 # Above code removes the header (First 16 bytes) so you can unmarshal it and execute it
 ```
 
+**Encrypting Bytecode:**
+```
+import bytecomp
+
+code_object = compile("print('This is a test.')",'file','exec')
+crypted = bytecomp.crypt_bytecode(code_object)
+
+# Above code returns a string, which can be executed with the code below.
+```
+
+**Executing Encrypted Bytecode:**
+```
+import bytecomp
+bytecomp.exec_crypted('c%0*YdNS#d&&L@bBZH4CS3P4z1MEQT3dCicKq7%Pk+qG5g*A~Sj8%udo+~gnr%V-yQdA2Q$_ll;by)5*l$PgY7p`F~2WbQo_ZgFOG869eT4rP=7Gx$^vjD}ufs6(KfJq*%')
+
+# Above code executes the encrypted code we made earlier.
+```
+
 **Bytecomp** is created by DeKrypt. <br>
 [Support the project!](https://github.com/dekrypted/bytecomp) Leave a star!
