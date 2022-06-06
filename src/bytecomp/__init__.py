@@ -1,6 +1,7 @@
 # bytecomp by DeKrypt | https://github.com/dekrypted
 # Can be used to compile python objects to bytecode, and generate the bytecode header.
-# Can also be used to execute bytecode and remove headers.
+# Can also be used to execute bytecode or remove headers.
+# Also can be used to encrypt bytecode, as a sort of obfuscation.
 
 import dis
 import marshal
