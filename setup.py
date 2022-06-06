@@ -12,7 +12,9 @@ setup(
     project_urls={
         "Bug Tracker": "https://github.com/dekrypted/bytecomp/issues",
     },
+    keywords=['bytecode','python']
     classifiers=[
+        "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
