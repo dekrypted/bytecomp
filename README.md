@@ -47,7 +47,7 @@ bytecomp.remove_header(b'U\r\r\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
 ```
 
 **Encrypting Bytecode:**
-```
+```py
 import bytecomp
 
 code_object = compile("print('This is a test.')",'file','exec')
@@ -57,7 +57,7 @@ crypted = bytecomp.crypt_bytecode(code_object)
 ```
 
 **Executing Encrypted Bytecode:**
-```
+```py
 import bytecomp
 bytecomp.exec_crypted('c%0*YdNS#d&&L@bBZH4CS3P4z1MEQT3dCicKq7%Pk+qG5g*A~Sj8%udo+~gnr%V-yQdA2Q$_ll;by)5*l$PgY7p`F~2WbQo_ZgFOG869eT4rP=7Gx$^vjD}ufs6(KfJq*%')
 
