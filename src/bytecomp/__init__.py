@@ -27,6 +27,9 @@ def compile_object(object: object) -> bytes:
     return HEADER + marshal.dumps(bytecode)
 
 def exec_bytecode(bytecode):
+    if type(bytecode).__name__ == 'code':
+        exec(bytecode)
+        return
     if type(bytecode).__name__ == 'bytes':
         raise TypeError('Object is not a bytes-like object!')
     try:
