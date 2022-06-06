@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="bytecomp",
-    version="1.0.1",
+    version="1.1.0",
     author="DeKrypt",
     author_email="gregcoolkidd@gmail.com",
     description="Utilities to work with bytecode.",
