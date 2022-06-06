@@ -1,4 +1,4 @@
-# bytecomp v1.1.0
+# Bytecomp v1.1.0
 Utilities for working with bytecode.
 
 **Magic:**
