@@ -65,4 +65,4 @@ bytecomp.exec_crypted('c%0*YdNS#d&&L@bBZH4CS3P4z1MEQT3dCicKq7%Pk+qG5g*A~Sj8%udo+
 ```
 
 **Bytecomp** is created by DeKrypt. <br>
-[Support the project!](https://github.com/dekrypted/bytecomp) Leave a star!
+[Support the project!](https://github.com/dekrypted/bytecomp) Leave a star.
