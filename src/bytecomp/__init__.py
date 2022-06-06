@@ -1,11 +1,6 @@
 # bytecomp by DeKrypt | https://github.com/dekrypted
 # Can be used to compile python objects to bytecode, and generate the bytecode header.
-# You can then write it to a .pyc file and use it.
-
-# Example:
-# import test
-# open('compiled.pyc','wb').write(test.compile_object(compile(<code>, 'filename', 'exec')))
-# The above code will compile a code object to a .pyc file.
+# Can also be used to execute bytecode and remove headers.
 
 import dis
 import marshal
@@ -26,24 +21,6 @@ def compile_object(object: object) -> bytes:
         raise Exception("An Unknown Error occurred.")
     return HEADER + marshal.dumps(bytecode)
 
-def exec_bytecode(bytecode):
-    if type(bytecode).__name__ == 'code':
-        exec(bytecode)
-        return
-    if type(bytecode).__name__ == 'bytes':
-        raise TypeError('Object is not a bytes-like object!')
-    try:
-        marshalData = marshal.loads(bytecode)
-    except ValueError:
-        raise ValueError('Bad/Invalid bytecode!')
-    try:
-        exec(marshal.loads(bytecode))
-    except Exception:
-        try:
-            exec(marshal.loads(bytecode[16:]))
-        except Exception:
-            raise ValueError('Bad/Invalid Bytecode!')
-            
  def remove_header(bytecode):
     try:
         marshal.loads(bytecode)
@@ -54,3 +31,13 @@ def exec_bytecode(bytecode):
             return bytecode[16:]
         except ValueError:
             raise ValueError('Bad/Invalid Bytecode!')
+
+def exec_bytecode(bytecode):
+    if type(bytecode).__name__ == 'code':
+        exec(bytecode)
+        return
+    if type(bytecode).__name__ != 'bytes':
+        raise TypeError('Object is not a bytes-like object!')
+    exec(marshal.loads(remove_header(bytecode)))
+
+            
