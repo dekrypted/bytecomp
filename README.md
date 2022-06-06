@@ -45,3 +45,6 @@ bytecomp.remove_header(b'U\r\r\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
 
 # Above code removes the header (First 16 bytes) so you can unmarshal it and execute it
 ```
+
+**Bytecomp** is created by DeKrypt.
+[Support the project!](https://github.com/dekrypted/bytecomp) Leave a star!
