@@ -4,6 +4,9 @@
 
 import dis
 import marshal
+import base64
+import zlib
+import random
 from importlib.util import MAGIC_NUMBER as MAGIC
 
 
@@ -21,7 +24,7 @@ def compile_object(object: object) -> bytes:
         raise Exception("An Unknown Error occurred.")
     return HEADER + marshal.dumps(bytecode)
 
- def remove_header(bytecode):
+def remove_header(bytecode):
     try:
         marshal.loads(bytecode)
         return bytecode
@@ -40,4 +43,28 @@ def exec_bytecode(bytecode):
         raise TypeError('Object is not a bytes-like object!')
     exec(marshal.loads(remove_header(bytecode)))
 
-            
+def crypt_bytecode(bytecode):
+    if type(bytecode).__name__ == 'code':
+        bytecode = marshal.dumps(bytecode)
+    if type(bytecode).__name__ != 'bytes':
+        raise TypeError('Object is not a bytes-like object!')
+    bytecode = remove_header(bytecode)
+    value = random.randrange(5,15)
+    bytecode = bytes([value])+bytes([random.randrange(1,255) for _ in range(value-1)]) + bytecode
+    bytecode = bytes([x^5 for x in bytecode])
+    bytecode = base64.b85encode(zlib.compress(bytecode)).decode()
+    return bytecode
+
+def exec_crypted(crypted):
+    try:
+        crypted = base64.b85decode(crypted.encode())
+        crypted = zlib.decompress(crypted)
+        crypted = bytes([x^5 for x in crypted])
+        buffer = int(crypted[0])
+        crypted = crypted[buffer:]
+        exec(marshal.loads(crypted))
+    except Exception:
+        raise ValueError('Invalid Type/Content!')
+    
+    
+    
