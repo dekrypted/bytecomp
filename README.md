@@ -1,4 +1,4 @@
-# bytecomp
+# bytecomp v1.1.0
 Utilities for working with bytecode.
 
 **Magic:**
@@ -8,7 +8,7 @@ import bytecomp
 bytecomp.MAGIC # Returns Magic
 ```
 
-**Pyc Headers:**
+**PYC Headers:**
 ```py
 import bytecomp
 
